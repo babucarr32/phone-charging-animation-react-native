@@ -19,11 +19,13 @@ const HomeScreenContent = () => {
   const [batterPercentage, setBatteryPercentage] = useState(0);
 
   useEffect(() => {
-    setInterval(() => {
+    const interval = setInterval(() => {
       getBatteryLevelAsync().then((result) => {
         setBatteryPercentage(Math.floor(result * 100));
       });
     }, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const animate = useAnimatedStyle(() => ({
